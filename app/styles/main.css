@@ -1,0 +1,61 @@
+body {
+  background-color: rgb(229,229,229);
+}
+
+#navbar {
+  background-color: white;  
+}
+
+#navbar-brand {
+  color: #0278AA;
+}
+
+#main {
+  margin-top: -160px;
+
+}
+
+#search-form {
+  background-color: white;
+  padding: 20px;
+  padding-top: 30px;
+  border-radius: 3px;
+  border: solid 1px gainsboro;
+}
+
+@media (max-width: 768px) {
+  #search-form {
+    border-radius: 0px;
+  }
+}
+
+#banner {
+  height: 300px;
+  background-color: #0278AA;
+  background-image: linear-gradient(to bottom,#0278AA 0,#35ABDD 100%);
+  position: relative;
+  z-index: -10; 
+}
+
+h1#title {
+  color: white;
+  font-size: 350%;
+  padding-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+  h1#title {
+    font-size: 200%;
+  }
+}
+
+#results {
+  margin-top: 20px;
+}
+
+#results .col-md-4 .result {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 3px;
+}
