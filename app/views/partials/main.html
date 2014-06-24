@@ -47,13 +47,24 @@
 
     <div class="col-md-4 result" ng-repeat="class in classes | filter: search | limitTo: 30">
       <div class="result">
-        <h5>{{class.title}}</h5>
+        <h5>{{class.search}} - {{class.group}}</h5>
         <p>
           <small>{{dayLabel(class.day)}}, {{class.start}} - {{class.end}}</small>
         </p>
         <p>
           <small>{{class.instructor}}</small>
         </p>
-      </div>
+
+        <!-- <p class="pull-right">
+          <button class="btn btn-link text-center info-button">
+            <span tooltip="Prerequisite" class="glyphicon glyphicon-info-sign"></span>
+          </button>
+        </p> -->
+        <a href="" ng-click="getInfo(class)" class="info-button">
+          <small>Prerequisite &amp Course Info</small>
+          <span class="glyphicon glyphicon-info-sign pull-right"></span>
+        </a>
+        <div class="clearfix"></div>
+      </div>      
     </div>
 </div>

@@ -6,7 +6,8 @@ angular.module('findmymodApp', [
   'ngSanitize',
   'ngRoute',
   'ui.bootstrap',
-  'ui.select2'
+  'ui.select2',
+  'angular-loading-bar'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -34,6 +35,9 @@ angular.module('findmymodApp', [
         }
       };
     }]);
+  })
+  .config(function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
   })
   .factory('_', function(){
     return window._;

@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="$close()">&times;</button>
+    <h3 class="modal-title">{{course.search}}</h3>
+</div>
+<div class="modal-body">
+    <div class="alert alert-info">
+      <small>        
+        <strong>Prerequisite:</strong> {{description.requirement}}
+      </small>
+    </div>
+    <strong>Course Writeup</strong>
+    <p class="writeup">
+      <small>
+        <em ng-bind-html="description.description">
+        </em>
+      </small>
+    </p>    
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" id="close-modal" ng-click="$close()">Done</button>
+</div>

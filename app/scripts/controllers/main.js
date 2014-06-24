@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('findmymodApp')
-  .controller('MainCtrl', function ($scope, $http, Class, $filter, _) {
+  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description) {
     var days = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
-    
     $scope.flags = {
       noMatch: false
     };
@@ -129,5 +128,20 @@ angular.module('findmymodApp')
         default:
           return 0;
       }
+    };
+
+    $scope.getInfo = function(course){
+      var modalInstance = $modal.open({
+        templateUrl: 'partials/information',
+        controller: 'InformationCtrl',
+        resolve: {
+          course: function(){
+            return course;
+          },
+          description: function(){
+            return Description.get({code: course.code}).$promise;
+          }
+        }
+      });
     };
   });
