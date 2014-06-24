@@ -55,6 +55,7 @@ h1#title {
 
 #results .col-md-4 .result {
   margin-bottom: 20px;
+  height: 185px;
   padding: 20px;  
   background-color: white;
   border-radius: 3px;
@@ -66,7 +67,7 @@ h1#title {
 }
 
 .modal-dialog {
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 .writeup {

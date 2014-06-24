@@ -1,13 +1,18 @@
 'use strict';
 
 angular.module('findmymodApp')
-  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description) {
+  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description, Exams) {
     var days = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
     $scope.flags = {
       noMatch: false
     };
 
     $scope.classes = Class.query(function(classes){
+      $scope.classes = classes.sort(function(a, b){
+        var numA = Number(a.group.substring(1));
+        var numB = Number(b.group.substring(1));
+        return numA - numB;
+      });
       $scope.courseTitle = _.uniq(_.reduce(classes, function(arr, c){
         arr.push(c.search);
         return arr;
@@ -102,6 +107,8 @@ angular.module('findmymodApp')
           return 'Wednesday';
         case 'THU':
           return 'Thursday';
+        case 'THUR':
+          return 'Thursday';
         case 'FRI':
           return 'Friday';
         case 'SAT':
@@ -140,6 +147,9 @@ angular.module('findmymodApp')
           },
           description: function(){
             return Description.get({code: course.code}).$promise;
+          },
+          exam: function(){
+            return Exams.get({ code: course.code }).$promise;
           }
         }
       });

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12 text-center">
-    <h1 id="title">Find Your Module</h1>
+    <h1 id="title">Find My Module</h1>
   </div>
 </div>
 <div class="row" id="search-form">
@@ -14,7 +14,7 @@
     </div>
 
     <div class="form-group col-md-4">
-      <label class="control-label">Professors:</label>
+      <label class="control-label">Professor:</label>
       <select class="form-control" ui-select2="{ allowClear: true }" ng-model="search.instructor" data-placeholder="Any">
         <option value=""></option>
         <option ng-repeat="professor in professors" value="{{professor}}">{{professor}}</option>
@@ -60,10 +60,10 @@
             <span tooltip="Prerequisite" class="glyphicon glyphicon-info-sign"></span>
           </button>
         </p> -->
-        <a href="" ng-click="getInfo(class)" class="info-button">
-          <small>Prerequisite &amp Course Info</small>
+        <button ng-click="getInfo(class)" class="text-left info-button btn btn-link btn-block">
+          <small class="pull-left">Prerequisite &amp Course Info</small>
           <span class="glyphicon glyphicon-info-sign pull-right"></span>
-        </a>
+        </button>
         <div class="clearfix"></div>
       </div>      
     </div>
