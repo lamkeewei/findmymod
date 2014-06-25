@@ -55,11 +55,18 @@ h1#title {
 
 #results .col-md-4 .result {
   margin-bottom: 20px;
-  height: 185px;
+  height: 200px;
   padding: 20px;  
   background-color: white;
   border-radius: 3px;
 }
+
+@media (max-width: 992px) {
+  #results .col-md-4 .result {
+    height: auto;
+  }
+}
+
 
 #close-modal {
   background-color: #35ABDD;
@@ -77,4 +84,60 @@ h1#title {
   padding-left: 25px; 
   padding-right: 15px; 
   border-left: solid gainsboro 5px;
+}
+
+.bid-history-row {
+  border-bottom: solid gainsboro 1px;
+}
+
+.bid-history-row:last-child {
+  border-bottom: none;
+}
+
+.bid-history-row div {
+  padding: 10px;
+  text-align: center;
+}
+
+#header.bid-history-row {
+  font-weight: bold;
+}
+
+#header.bid-history-row div{
+  padding-bottom: 5px;
+}
+
+#bid-history {
+  padding: 20px;
+  padding-top: 10px;
+}
+
+@media (max-width: 767px) {
+  #bid-history {
+    padding: 10px;
+  }  
+}
+
+@media (max-width: 767px) {
+  #course-title {
+    font-size: 120%;
+  }  
+}
+
+.pagination .active a{
+  /*background-color: #35ABDD;
+  border-color: #0278AA;*/
+}
+
+#instructor-history {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+#no-match {
+  padding: 15px 10px;
+}
+
+.remove-btm-margin {
+  margin-bottom: 5px;
 }

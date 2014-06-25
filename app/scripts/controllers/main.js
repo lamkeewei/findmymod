@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('findmymodApp')
-  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description, Exams) {
+  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description, Exams, Bids) {
     var days = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
     $scope.flags = {
       noMatch: false
@@ -150,6 +150,26 @@ angular.module('findmymodApp')
           },
           exam: function(){
             return Exams.get({ code: course.code }).$promise;
+          }
+        }
+      });
+    };
+
+    $scope.getBidHistory = function(course){
+      var modalInstance = $modal.open({
+        templateUrl: 'partials/history',
+        controller: 'HistoryCtrl',
+        resolve: {
+          course: function(){
+            return course;
+          },
+          bids: function(){
+            var query = {
+              code: course.code,
+              instructor: course.instructor
+            };
+
+            return Bids.getBids(query).$promise;
           }
         }
       });

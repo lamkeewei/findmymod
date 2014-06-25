@@ -45,14 +45,14 @@
       <li ng-show="flags.noMatch">No match</li>
     </ul> -->
 
-    <div class="col-md-4 result" ng-repeat="class in classes | filter: search | limitTo: 30">
+    <div class="col-md-4 result" ng-repeat="course in classes | filter: search | limitTo: 30">
       <div class="result">
-        <h5>{{class.search}} - {{class.group}}</h5>
+        <h5>{{course.search}} - {{course.group}}</h5>
         <p>
-          <small>{{dayLabel(class.day)}}, {{class.start}} - {{class.end}}</small>
+          <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
         </p>
         <p>
-          <small>{{class.instructor}}</small>
+          <small>{{course.instructor}}</small>
         </p>
 
         <!-- <p class="pull-right">
@@ -60,9 +60,13 @@
             <span tooltip="Prerequisite" class="glyphicon glyphicon-info-sign"></span>
           </button>
         </p> -->
-        <button ng-click="getInfo(class)" class="text-left info-button btn btn-link btn-block">
+        <button ng-click="getInfo(course)" class="text-left info-button btn btn-link btn-block">
           <small class="pull-left">Prerequisite &amp Course Info</small>
           <span class="glyphicon glyphicon-info-sign pull-right"></span>
+        </button>
+        <button ng-click="getBidHistory(course)" class="text-left info-button btn btn-link btn-block">
+          <small class="pull-left">Bid History</small>
+          <span class="glyphicon glyphicon-time pull-right"></span>
         </button>
         <div class="clearfix"></div>
       </div>      

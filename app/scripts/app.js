@@ -7,7 +7,8 @@ angular.module('findmymodApp', [
   'ngRoute',
   'ui.bootstrap',
   'ui.select2',
-  'angular-loading-bar'
+  'angular-loading-bar',
+  'nvd3ChartDirectives'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

@@ -10,12 +10,16 @@
     <title>Find My Module</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <meta property="og:image" content="https://s3-ap-southeast-1.amazonaws.com/findmymod/share_image.png" />
+    <meta property="og:title" content="Find My Module" />
+    <meta property="og:description" content="The fastest way to search for modules on BOSS. No login required. Includes consolidated exam dates, course info and pre-requisites." />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(app) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/select2/select2.css" />
     <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/nvd3/src/nv.d3.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
@@ -63,6 +67,9 @@
     <script src="bower_components/select2/select2.js"></script>
     <script src="bower_components/angular-ui-select2/src/select2.js"></script>
     <script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/nvd3/nv.d3.js"></script>
+    <script src="bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -81,6 +88,9 @@
         <script src="scripts/controllers/Information.js"></script>
         <script src="scripts/services/Description.js"></script>
         <script src="scripts/services/Exams.js"></script>
+        <script src="scripts/controllers/History.js"></script>
+        <script src="scripts/services/Bids.js"></script>
+        <script src="scripts/filters/slice.js"></script>
         <!-- endbuild -->
 </body>
 </html>

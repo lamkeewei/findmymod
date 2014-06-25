@@ -1,0 +1,77 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="$close()">&times;</button>
+    <h3 class="modal-title" id="course-title">{{course.search}}</h3>
+    <p class="help-block" id="instructor-history">Instructor: {{course.instructor}}</p>
+</div>
+<div class="modal-body">
+  <p class="text-center" ng-show="originalBids.length < 1">
+    <small>No bid history found</small>
+  </p>
+  <div ng-show="originalBids.length > 0">    
+    <div class="form-group">
+      <select class="form-control input-sm" ng-model="state.semester">
+        <option value="">All Semesters</option>
+        <option value="1">AY13/14 - Semester 1</option>
+        <option value="2">AY13/14 - Semester 2</option>
+      </select>
+    </div>
+    <div class="form-group remove-btm-margin">
+      <select class="form-control input-sm" ng-model="state.round">
+        <option value="">All Bidding Rounds</option>
+        <option ng-repeat="round in rounds" value="{{$index}}">Round {{round.round}} Window {{round.window}}</option>
+      </select>
+    </div>
+    <div class="form-group remove-btm-margin">
+      <button class="btn btn-link btn-sm pull-right" ng-click="reset()">Reset</button>
+      <div class="clearfix"></div>
+    </div>
+    <div id="bid-history">
+      <div class="row bid-history-row" id="header">
+        <div class="col-xs-3">      
+          <small>Round</small>
+        </div>
+        <div class="col-xs-3">
+          <small>Section</small>
+        </div>
+        <div class="col-xs-2">
+          <small class="visible-xs">Vac</small><small class="hidden-xs">Vacancy</small>
+        </div>
+        <div class="col-xs-2">
+          <small>Max</small>
+        </div>
+        <div class="col-xs-2">
+          <small>Min</small>
+        </div>
+      </div>
+
+      <div class="row bid-history-row" ng-repeat="bid in bids | filter: {} | slice: { pos: state.currentPage, num: 5, bids: bids } | limitTo: 5">
+        <div class="col-xs-3">      
+          <small><span class="visible-xs">{{bid.type}}</span><span class="hidden-xs">{{bid.type}}</span> {{bid.round}} - {{bid.window}}</small>
+        </div>
+        <div class="col-xs-3">
+          <small>{{bid.section}}</small>
+        </div>
+        <div class="col-xs-2">
+          <small>{{bid.vacancy}}</small>
+        </div>
+        <div class="col-xs-2">
+          <small>{{toTwoDecimal(bid.minBid)}}</small>
+        </div>
+        <div class="col-xs-2">
+          <small>{{toTwoDecimal(bid.maxBid)}}</small>
+        </div>
+      </div>
+      
+      <div class="row" id="no-match" ng-show="bids.length < 1">
+        <p class="text-center">
+          <small>No match</small>
+        </p>
+      </div>
+      <div class="text-center" ng-show="bids.length > 0">
+        <pagination class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" total-items="bids.length" max-size="3" items-per-page="5" ng-model="state.currentPage" boundary-links="true" ng-change=""></pagination>
+      </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" id="close-modal" ng-click="$close()">Done</button>
+</div>
