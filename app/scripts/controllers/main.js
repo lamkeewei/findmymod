@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('findmymodApp')
-  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description, Exams, Bids) {
+  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description, Exams, Bids, Outlines) {
     var days = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
     $scope.flags = {
       noMatch: false
@@ -150,6 +150,13 @@ angular.module('findmymodApp')
           },
           exam: function(){
             return Exams.get({ code: course.code }).$promise;
+          },
+          outline: function(){
+            var query = {
+              code: course.code,
+              section: course.group
+            };
+            return Outlines.get(query).$promise;
           }
         }
       });

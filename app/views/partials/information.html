@@ -13,7 +13,7 @@
         <strong>Exams: </strong> {{exam}}
       </small>
     </div>
-    <strong>Course Writeup</strong>
+    <strong>Course Writeup <small class="pull-right"><a ng-show="outline.link" ng-href="{{outline.link}}" target="_blank">(<span class="glyphicon glyphicon-book"></span> Full Outline)</a></small></strong>
     <p class="writeup">
       <small>
         <em ng-bind-html="description.description">

@@ -2,7 +2,8 @@
 'use strict';
 
 angular.module('findmymodApp')
-  .controller('InformationCtrl', function ($scope, $modalInstance, course, description, exam) {
+  .controller('InformationCtrl', function ($scope, $modalInstance, course, description, exam, outline) {
+    $scope.outline = outline;
     $scope.dayLabel = function(day){
       switch(day) {
         case 'MON':
