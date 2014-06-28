@@ -2,5 +2,5 @@
 
 angular.module('findmymodApp')
   .factory('Description', function ($resource) {
-    return $resource('/api/descriptions/:code', {}, {});
+    return $resource('/api/descriptions/:number', {}, {});
   });

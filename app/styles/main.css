@@ -56,7 +56,7 @@ h1#title {
 
 #results .col-md-4 .result {
   margin-bottom: 20px;
-  height: 200px;
+  height: 250px;
   padding: 20px;  
   background-color: white;
   border-radius: 3px;
@@ -76,7 +76,7 @@ h1#title {
 }
 
 .modal-dialog {
-  margin-top: 5%;
+  margin-top: 2.5%;
 }
 
 .writeup {
@@ -142,4 +142,73 @@ h1#title {
 
 .remove-btm-margin {
   margin-bottom: 5px;
+}
+
+#availability {
+  /*margin-top: 15px;*/
+  margin-bottom: 15px;
+  padding: 10px 0px;
+  padding-top: 0px;
+  /*border-top: solid 1px gainsboro;
+  border-bottom: solid 1px gainsboro;*/
+}
+
+#availability .row {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#availability .row:first-child {
+  font-weight: bold;
+  opacity: 0.95;
+}
+
+#availability .row .col-xs-3 {
+  border-right: solid 1px rgba(220,220,220,0.90);
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#availability .row .col-xs-3:last-child {
+  border-right: none;
+}
+
+#course-area{
+  text-align: justify;
+  padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin: 0px;
+    width: 100%;
+  }
+
+  .modal-content {
+    border-radius: 0px;
+  }
+
+  .modal.fade .modal-dialog, .modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+
+.grey-text {
+  color: grey;
+}
+
+.btn-link:focus,
+.btn-link:active:focus {
+  outline: none;
+}
+
+.badge-blue {
+  background-color: #428bca;
+  margin-left: 10px;
+}
+
+#empty-placeholder {
+  padding: 15px 0px;
 }

@@ -8,7 +8,8 @@ angular.module('findmymodApp', [
   'ui.bootstrap',
   'ui.select2',
   'angular-loading-bar',
-  'nvd3ChartDirectives'
+  'nvd3ChartDirectives',
+  'LocalStorageModule'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -39,6 +40,9 @@ angular.module('findmymodApp', [
   })
   .config(function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
+  })
+  .config(function(localStorageServiceProvider){
+    localStorageServiceProvider.setPrefix('findmymod');
   })
   .factory('_', function(){
     return window._;

@@ -34,19 +34,249 @@
 <div class="row">
   <div class="col-md-12">
     <button class="btn btn-link pull-right" ng-click="reset()">Clear Search</button>
+    <button class="btn btn-link pull-right" ng-click="toggleMode()"><span ng-hide="flags.showSelected">Show Selected</span><span ng-show="flags.showSelected">Back to Search</span> <span class="badge badge-blue">{{selectedCount()}}</span></button>
   </div>
 </div>
 
-<div class="row" id="results">
-    <!-- <ul>
-      <li ng-repeat="class in classes | filter: search | limitTo: 50">
-        {{class.code}} / {{class.title}} / {{class.day}} / {{class.instructor}} / {{class.start}} - {{class.end}}
-      </li>
-      <li ng-show="flags.noMatch">No match</li>
-    </ul> -->
+<div ng-show="flags.showSelected">
+  <div class="row" ng-show="selectedCount() === 0">
+    <div class="col-md-12 text-center" id="empty-placeholder">
+      <span>No modules selected</span>
+    </div>
+  </div>
+  <!-- Monday -->
+  <div ng-show="selected.Monday.length > 0">
+    <div class="row">
+      <div class="col-md-12 day-header">
+        <strong>Monday</strong>
+      </div>
+    </div>
+    <div class="row" id="results">
+      <div class="col-md-4 result" ng-repeat="course in selected.Monday | orderBy: start">
+        <div class="result">
+          <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
+          <h5>{{course.search}} - {{course.group}}</h5>
+          <p>
+            <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
+          </p>
+          <p>
+            <small>{{course.instructor}}</small>
+          </p>
 
+          <button ng-click="getInfo(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Prerequisite &amp Course Info</small>
+            <span class="glyphicon glyphicon-info-sign pull-right"></span>
+          </button>
+          <button ng-click="getBidHistory(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Bid History</small>
+            <span class="glyphicon glyphicon-time pull-right"></span>
+          </button>
+          <button ng-click="selectCourse(course)" class="text-left info-button btn btn-link btn-block" ng-class="{'grey-text': !course.saved }">
+            <small ng-show="course.saved" class="pull-left">Deselect Course</small>
+            <small ng-hide="course.saved" class="pull-left">Select Course</small>
+            <span class="glyphicon pull-right" ng-class="{'glyphicon-save': !course.saved, 'glyphicon-saved': course.saved}"></span>
+          </button>
+          <div class="clearfix"></div>
+        </div>      
+      </div>
+    </div>
+  </div>
+
+  <!-- Tuesday -->
+  <div ng-show="selected.Tuesday.length > 0">
+    <div class="row">
+      <div class="col-md-12 day-header">
+        <strong>Tuesday</strong>
+      </div>
+    </div>
+    <div class="row" id="results">
+      <div class="col-md-4 result" ng-repeat="course in selected.Tuesday | filter:search">
+        <div class="result">
+          <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
+          <h5>{{course.search}} - {{course.group}}</h5>
+          <p>
+            <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
+          </p>
+          <p>
+            <small>{{course.instructor}}</small>
+          </p>
+
+          <button ng-click="getInfo(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Prerequisite &amp Course Info</small>
+            <span class="glyphicon glyphicon-info-sign pull-right"></span>
+          </button>
+          <button ng-click="getBidHistory(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Bid History</small>
+            <span class="glyphicon glyphicon-time pull-right"></span>
+          </button>
+          <button ng-click="selectCourse(course)" class="text-left info-button btn btn-link btn-block" ng-class="{'grey-text': !course.saved }">
+            <small ng-show="course.saved" class="pull-left">Deselect Course</small>
+            <small ng-hide="course.saved" class="pull-left">Select Course</small>
+            <span class="glyphicon pull-right" ng-class="{'glyphicon-save': !course.saved, 'glyphicon-saved': course.saved}"></span>
+          </button>
+          <div class="clearfix"></div>
+        </div>      
+      </div>
+    </div>
+  </div>
+
+  <!-- Wednesday -->
+  <div ng-show="selected.Wednesday.length > 0">
+    <div class="row">
+      <div class="col-md-12 day-header">
+        <strong>Wednesday</strong>
+      </div>
+    </div>
+    <div class="row" id="results">
+      <div class="col-md-4 result" ng-repeat="course in selected.Wednesday | filter:search">
+        <div class="result">
+          <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
+          <h5>{{course.search}} - {{course.group}}</h5>
+          <p>
+            <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
+          </p>
+          <p>
+            <small>{{course.instructor}}</small>
+          </p>
+
+          <button ng-click="getInfo(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Prerequisite &amp Course Info</small>
+            <span class="glyphicon glyphicon-info-sign pull-right"></span>
+          </button>
+          <button ng-click="getBidHistory(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Bid History</small>
+            <span class="glyphicon glyphicon-time pull-right"></span>
+          </button>
+          <button ng-click="selectCourse(course)" class="text-left info-button btn btn-link btn-block" ng-class="{'grey-text': !course.saved }">
+            <small ng-show="course.saved" class="pull-left">Deselect Course</small>
+            <small ng-hide="course.saved" class="pull-left">Select Course</small>
+            <span class="glyphicon pull-right" ng-class="{'glyphicon-save': !course.saved, 'glyphicon-saved': course.saved}"></span>
+          </button>
+          <div class="clearfix"></div>
+        </div>      
+      </div>
+    </div>
+  </div>
+
+  <!-- Thursday -->
+  <div ng-show="selected.Thursday.length > 0">
+    <div class="row">
+      <div class="col-md-12 day-header">
+        <strong>Thursday</strong>
+      </div>
+    </div>
+    <div class="row" id="results">
+      <div class="col-md-4 result" ng-repeat="course in selected.Thursday | filter:search">
+        <div class="result">
+          <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
+          <h5>{{course.search}} - {{course.group}}</h5>
+          <p>
+            <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
+          </p>
+          <p>
+            <small>{{course.instructor}}</small>
+          </p>
+
+          <button ng-click="getInfo(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Prerequisite &amp Course Info</small>
+            <span class="glyphicon glyphicon-info-sign pull-right"></span>
+          </button>
+          <button ng-click="getBidHistory(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Bid History</small>
+            <span class="glyphicon glyphicon-time pull-right"></span>
+          </button>
+          <button ng-click="selectCourse(course)" class="text-left info-button btn btn-link btn-block" ng-class="{'grey-text': !course.saved }">
+            <small ng-show="course.saved" class="pull-left">Deselect Course</small>
+            <small ng-hide="course.saved" class="pull-left">Select Course</small>
+            <span class="glyphicon pull-right" ng-class="{'glyphicon-save': !course.saved, 'glyphicon-saved': course.saved}"></span>
+          </button>
+          <div class="clearfix"></div>
+        </div>      
+      </div>
+    </div>
+  </div>
+
+  <!-- Friday -->
+  <div ng-show="selected.Friday.length > 0">
+    <div class="row">
+      <div class="col-md-12 day-header">
+        <strong>Friday</strong>
+      </div>
+    </div>
+    <div class="row" id="results">
+      <div class="col-md-4 result" ng-repeat="course in selected.Friday | filter:search">
+        <div class="result">
+          <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
+          <h5>{{course.search}} - {{course.group}}</h5>
+          <p>
+            <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
+          </p>
+          <p>
+            <small>{{course.instructor}}</small>
+          </p>
+
+          <button ng-click="getInfo(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Prerequisite &amp Course Info</small>
+            <span class="glyphicon glyphicon-info-sign pull-right"></span>
+          </button>
+          <button ng-click="getBidHistory(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Bid History</small>
+            <span class="glyphicon glyphicon-time pull-right"></span>
+          </button>
+          <button ng-click="selectCourse(course)" class="text-left info-button btn btn-link btn-block" ng-class="{'grey-text': !course.saved }">
+            <small ng-show="course.saved" class="pull-left">Deselect Course</small>
+            <small ng-hide="course.saved" class="pull-left">Select Course</small>
+            <span class="glyphicon pull-right" ng-class="{'glyphicon-save': !course.saved, 'glyphicon-saved': course.saved}"></span>
+          </button>
+          <div class="clearfix"></div>
+        </div>      
+      </div>
+    </div>
+  </div>
+
+  <!-- Saturday -->
+  <div ng-show="selected.Saturday.length > 0">
+    <div class="row">
+      <div class="col-md-12 day-header">
+        <strong>Saturday</strong>
+      </div>
+    </div>
+    <div class="row" id="results">
+      <div class="col-md-4 result" ng-repeat="course in selected.Saturday | filter:search">
+        <div class="result">
+          <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
+          <h5>{{course.search}} - {{course.group}}</h5>
+          <p>
+            <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
+          </p>
+          <p>
+            <small>{{course.instructor}}</small>
+          </p>
+
+          <button ng-click="getInfo(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Prerequisite &amp Course Info</small>
+            <span class="glyphicon glyphicon-info-sign pull-right"></span>
+          </button>
+          <button ng-click="getBidHistory(course)" class="text-left info-button btn btn-link btn-block">
+            <small class="pull-left">Bid History</small>
+            <span class="glyphicon glyphicon-time pull-right"></span>
+          </button>
+          <button ng-click="selectCourse(course)" class="text-left info-button btn btn-link btn-block" ng-class="{'grey-text': !course.saved }">
+            <small ng-show="course.saved" class="pull-left">Deselect Course</small>
+            <small ng-hide="course.saved" class="pull-left">Select Course</small>
+            <span class="glyphicon pull-right" ng-class="{'glyphicon-save': !course.saved, 'glyphicon-saved': course.saved}"></span>
+          </button>
+          <div class="clearfix"></div>
+        </div>      
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" id="results" ng-hide="flags.showSelected">    
     <div class="col-md-4 result" ng-repeat="course in classes | filter: search | limitTo: 30">
       <div class="result">
+        <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
         <h5>{{course.search}} - {{course.group}}</h5>
         <p>
           <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
@@ -55,11 +285,6 @@
           <small>{{course.instructor}}</small>
         </p>
 
-        <!-- <p class="pull-right">
-          <button class="btn btn-link text-center info-button">
-            <span tooltip="Prerequisite" class="glyphicon glyphicon-info-sign"></span>
-          </button>
-        </p> -->
         <button ng-click="getInfo(course)" class="text-left info-button btn btn-link btn-block">
           <small class="pull-left">Prerequisite &amp Course Info</small>
           <span class="glyphicon glyphicon-info-sign pull-right"></span>
@@ -68,7 +293,13 @@
           <small class="pull-left">Bid History</small>
           <span class="glyphicon glyphicon-time pull-right"></span>
         </button>
+        <button ng-click="selectCourse(course)" class="text-left info-button btn btn-link btn-block" ng-class="{'grey-text': !course.saved }">
+          <small ng-show="course.saved" class="pull-left">Deselect Course</small>
+          <small ng-hide="course.saved" class="pull-left">Select Course</small>
+          <span class="glyphicon pull-right" ng-class="{'glyphicon-save': !course.saved, 'glyphicon-saved': course.saved}"></span>
+        </button>
         <div class="clearfix"></div>
       </div>      
     </div>
+  </div>
 </div>

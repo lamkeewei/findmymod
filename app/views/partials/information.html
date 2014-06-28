@@ -1,8 +1,23 @@
-<div class="modal-header">
+<div class="modal-header" full-height>
   <button type="button" class="close" ng-click="$close()">&times;</button>
     <h3 id="course-title" class="modal-title">{{course.search}}</h3>
+    <small>{{description.units}} CU / {{description.grading}}</small>
 </div>
 <div class="modal-body">
+    <div id="availability">      
+      <div class="row text-center">
+        <div class="col-xs-3"><small>Total</small></div>
+        <div class="col-xs-3"><small>Enrolled</small></div>
+        <div class="col-xs-3"><small>Reserved</small></div>
+        <div class="col-xs-3"><small class="visible-xs">Avail.</small><small class="hidden-xs">Available</small></div>
+      </div>
+      <div class="row text-center">
+        <div class="col-xs-3">{{description.availability.total}}</div>
+        <div class="col-xs-3">{{description.availability.enrolled}}</div>
+        <div class="col-xs-3">{{description.availability.reserved}}</div>
+        <div class="col-xs-3">{{description.availability.available}}</div>
+      </div>
+    </div>
     <div class="alert alert-info">
       <small>        
         <strong>Pre-requisite:</strong> {{description.requirement}}
@@ -12,14 +27,17 @@
       <small>        
         <strong>Exams: </strong> {{exam}}
       </small>
-    </div>
-    <strong>Course Writeup <small class="pull-right"><a ng-show="outline.link" ng-href="{{outline.link}}" target="_blank">(<span class="glyphicon glyphicon-book"></span> Full Outline)</a></small></strong>
+    </div>    
+    <strong>Course Writeup <small class="pull-right"><a ng-show="description.link" ng-href="{{description.link}}" target="_blank">(<span class="glyphicon glyphicon-book"></span> Full Outline)</a></small></strong>    
     <p class="writeup">
       <small>
         <em ng-bind-html="description.description">
         </em>
       </small>
     </p>    
+    <p id="course-area">
+      <small><strong>Course Areas: </strong><span ng-bind-html="description.areas"></span></small>.
+    </p>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" id="close-modal" ng-click="$close()">Done</button>

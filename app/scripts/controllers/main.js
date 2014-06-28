@@ -1,10 +1,16 @@
 'use strict';
 
 angular.module('findmymodApp')
-  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description, Exams, Bids, Outlines) {
+  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description, Bids, localStorageService) {
     var days = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
     $scope.flags = {
-      noMatch: false
+      noMatch: false,
+      showSelected: false
+    };
+
+    $scope.saveToStorage = function(){
+      localStorageService.remove('selected');
+      localStorageService.add('selected', $scope.selected);
     };
 
     $scope.classes = Class.query(function(classes){
@@ -23,6 +29,32 @@ angular.module('findmymodApp')
       }, []));
 
       $scope.days = days;
+
+      var stored = localStorageService.get('selected');
+
+      if (stored) {
+        $scope.selected = stored;
+        var all = [];
+        Object.keys($scope.selected).forEach(function(day){
+          all = all.concat($scope.selected[day]);
+        });
+
+        all.forEach(function(course){
+          var match = _.filter($scope.classes, {code: course.code, group: course.group});
+          match[0].saved = true;
+        });
+      } else {
+        $scope.selected = {
+          Monday: [],
+          Tuesday: [],
+          Wednesday: [],
+          Thursday: [],
+          Friday: [],
+          Saturday: []
+        };
+
+        localStorageService.add('selected', $scope.selected);
+      }
     });
     $scope.search = {};
 
@@ -83,6 +115,10 @@ angular.module('findmymodApp')
 
       if (clearInstructor) {
         $scope.updateProfessors(filtered);
+      }
+
+      if ($scope.flags.showSelected) {
+        $scope.getSelected();
       }
     }, true);
 
@@ -146,17 +182,7 @@ angular.module('findmymodApp')
             return course;
           },
           description: function(){
-            return Description.get({code: course.code}).$promise;
-          },
-          exam: function(){
-            return Exams.get({ code: course.code }).$promise;
-          },
-          outline: function(){
-            var query = {
-              code: course.code,
-              section: course.group
-            };
-            return Outlines.get(query).$promise;
+            return Description.get({number: course.classNbr}).$promise;
           }
         }
       });
@@ -180,5 +206,50 @@ angular.module('findmymodApp')
           }
         }
       });
+    };
+
+    $scope.toggleMode = function(){
+      $scope.reset();
+      $scope.flags.showSelected = !$scope.flags.showSelected;
+      if ($scope.flags.showSelected) {
+        $scope.getSelected();
+      }
+    };
+
+    $scope.selectedCount = function(){
+      var count = _.filter($scope.classes, { saved: true }).length;
+      return count;
+    };
+
+    $scope.getSelected = function(){
+      var filtered = $filter('filter')($scope.classes, $scope.search);
+      $scope.selected = {
+        Monday: $filter('filter')(filtered, { saved: true, day: 'MON'}),
+        Tuesday: $filter('filter')(filtered, { saved: true, day: 'TUE'}),
+        Wednesday: $filter('filter')(filtered, { saved: true, day: 'WED'}),
+        Thursday: $filter('filter')(filtered, { saved: true, day: 'THU'}),
+        Friday: $filter('filter')(filtered, { saved: true, day: 'FRI'}),
+        Saturday: $filter('filter')(filtered, { saved: true, day: 'SAT'})
+      };
+
+      var toNumber = function(el){
+        return Number(el.start);
+      };
+
+      $scope.selected = {
+        Monday: _.sortBy($scope.selected.Monday, toNumber),
+        Tuesday: _.sortBy($scope.selected.Tuesday, toNumber),
+        Wednesday: _.sortBy($scope.selected.Wednesday, toNumber),
+        Thursday: _.sortBy($scope.selected.Thursday, toNumber),
+        Friday: _.sortBy($scope.selected.Friday, toNumber),
+        Saturday: _.sortBy($scope.selected.Saturday, toNumber)
+      };
+
+      $scope.saveToStorage();
+    };
+
+    $scope.selectCourse = function(course) {
+      course.saved = !course.saved;
+      $scope.getSelected();
     };
   });

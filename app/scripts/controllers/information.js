@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('findmymodApp')
-  .controller('InformationCtrl', function ($scope, $modalInstance, course, description, exam, outline) {
-    $scope.outline = outline;
+  .controller('InformationCtrl', function ($scope, $modalInstance, course, description) {
+    $scope.description = description;
     $scope.dayLabel = function(day){
       switch(day) {
         case 'MON':
@@ -23,16 +23,21 @@ angular.module('findmymodApp')
       }
     };
 
-    if (exam.exam) {
-      $scope.exam = exam.exam;
+    if (!$scope.description.exam) {
+      $scope.exam = 'No Exam';
     } else {
-      $scope.exam = $scope.dayLabel(exam.day) + ' ' + exam.date + '  ' + exam.start;
+      var exam = $scope.description.exam;
+      $scope.exam = $scope.dayLabel(exam.day.toUpperCase()) + ' ' + exam.date + '  ' + exam.start + ' - ' + exam.end;
     }
-    $scope.description = description;
+ 
     if (!$scope.description.requirement) {
       $scope.description.requirement = 'None';
     }
 
+    $scope.description.areas = $scope.description.areas.sort(function(a, b){
+      return a.length - b.length;
+    });
+    $scope.description.areas = $scope.description.areas.join(', ');
     $scope.description.requirement = $scope.description.requirement.replace('Pre-Requisite: ', '');
     $scope.course = course;
   });
