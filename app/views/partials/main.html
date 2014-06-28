@@ -33,8 +33,8 @@
 
 <div class="row">
   <div class="col-md-12">
-    <button class="btn btn-link pull-right" ng-click="reset()">Clear Search</button>
     <button class="btn btn-link pull-right" ng-click="toggleMode()"><span ng-hide="flags.showSelected">Show Selected</span><span ng-show="flags.showSelected">Back to Search</span> <span class="badge badge-blue">{{selectedCount()}}</span></button>
+    <button class="btn btn-link pull-right" ng-click="reset()">Clear Search</button>
   </div>
 </div>
 
@@ -279,7 +279,7 @@
         <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
         <h5>{{course.search}} - {{course.group}}</h5>
         <p>
-          <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
+          <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}} <span ng-repeat="other in course.otherDates"> / {{dayLabel(other.day)}}, {{other.start}} - {{other.end}}</span></small>
         </p>
         <p>
           <small>{{course.instructor}}</small>

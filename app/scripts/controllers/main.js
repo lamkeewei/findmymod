@@ -15,18 +15,25 @@ angular.module('findmymodApp')
 
     $scope.classes = Class.query(function(classes){
       $scope.classes = classes.sort(function(a, b){
-        var numA = Number(a.group.substring(1));
-        var numB = Number(b.group.substring(1));
-        return numA - numB;
+        if (a.code === b.code) {
+          return Number(a.group.substring(1)) - Number(b.group.substring(1));
+        } else {
+          return a.code.localeCompare(b.code);
+        }
       });
+
       $scope.courseTitle = _.uniq(_.reduce(classes, function(arr, c){
         arr.push(c.search);
         return arr;
       }, []));
+
+      $scope.courseTitle = $scope.courseTitle.sort();
+
       $scope.professors = _.uniq(_.reduce(classes, function(arr, c){
         arr.push(c.instructor);
         return arr;
       }, []));
+      $scope.professors = $scope.professors.sort();
 
       $scope.days = days;
 
@@ -65,6 +72,7 @@ angular.module('findmymodApp')
       }, []);
 
       $scope.professors = _.uniq(professors);
+      $scope.professors = $scope.professors.sort();
     };
 
     $scope.updateDays = function(filtered){
@@ -84,6 +92,7 @@ angular.module('findmymodApp')
         arr.push(c.search);
         return arr;
       }, []));
+      $scope.courseTitle = $scope.courseTitle.sort();
     };
 
     $scope.$watch('search', function(newVal, oldVal){
@@ -224,12 +233,90 @@ angular.module('findmymodApp')
     $scope.getSelected = function(){
       var filtered = $filter('filter')($scope.classes, $scope.search);
       $scope.selected = {
-        Monday: $filter('filter')(filtered, { saved: true, day: 'MON'}),
-        Tuesday: $filter('filter')(filtered, { saved: true, day: 'TUE'}),
-        Wednesday: $filter('filter')(filtered, { saved: true, day: 'WED'}),
-        Thursday: $filter('filter')(filtered, { saved: true, day: 'THU'}),
-        Friday: $filter('filter')(filtered, { saved: true, day: 'FRI'}),
-        Saturday: $filter('filter')(filtered, { saved: true, day: 'SAT'})
+        Monday: _.filter(filtered, function(c){
+          var cond1 = c.saved && c.day === 'MON';
+          var cond2 = false;
+
+          if (c.saved && c.otherDates) {
+            c.otherDates.forEach(function(cc){
+              if (cc.day === 'MON') {
+                cond2 = true;
+              }
+            });
+          }
+
+          return cond1 || cond2;
+        }),
+        Tuesday: _.filter(filtered, function(c){
+          var cond1 = c.saved && c.day === 'TUE';
+          var cond2 = false;
+
+          if (c.saved && c.otherDates) {
+            c.otherDates.forEach(function(cc){
+              if (cc.day === 'TUE') {
+                cond2 = true;
+              }
+            });
+          }
+
+          return cond1 || cond2;
+        }),
+        Wednesday: _.filter(filtered, function(c){
+          var cond1 = c.saved && c.day === 'WED';
+          var cond2 = false;
+
+          if (c.saved && c.otherDates) {
+            c.otherDates.forEach(function(cc){
+              if (cc.day === 'WED') {
+                cond2 = true;
+              }
+            });
+          }
+
+          return cond1 || cond2;
+        }),
+        Thursday: _.filter(filtered, function(c){
+          var cond1 = c.saved && c.day === 'THU';
+          var cond2 = false;
+
+          if (c.saved && c.otherDates) {
+            c.otherDates.forEach(function(cc){
+              if (cc.day === 'THU') {
+                cond2 = true;
+              }
+            });
+          }
+
+          return cond1 || cond2;
+        }),
+        Friday: _.filter(filtered, function(c){
+          var cond1 = c.saved && c.day === 'FRI';
+          var cond2 = false;
+
+          if (c.saved && c.otherDates) {
+            c.otherDates.forEach(function(cc){
+              if (cc.day === 'FRI') {
+                cond2 = true;
+              }
+            });
+          }
+
+          return cond1 || cond2;
+        }),
+        Saturday: _.filter(filtered, function(c){
+          var cond1 = c.saved && c.day === 'SAT';
+          var cond2 = false;
+
+          if (c.saved && c.otherDates) {
+            c.otherDates.forEach(function(cc){
+              if (cc.day === 'SAT') {
+                cond2 = true;
+              }
+            });
+          }
+
+          return cond1 || cond2;
+        })
       };
 
       var toNumber = function(el){
