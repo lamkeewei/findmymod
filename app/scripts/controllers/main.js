@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('findmymodApp')
-  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description, Bids, localStorageService) {
+  .controller('MainCtrl', function ($scope, $http, Class, $filter, _, $modal, Description, Bids, localStorageService, moment, $q) {
     var days = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
     $scope.flags = {
       noMatch: false,
-      showSelected: false
+      showSelected: false,
+      conflictExams: false,
+      conflictClass: false,
     };
 
     $scope.saveToStorage = function(){
@@ -332,7 +334,99 @@ angular.module('findmymodApp')
         Saturday: _.sortBy($scope.selected.Saturday, toNumber)
       };
 
+      if ($scope.flags.showSelected) {
+        $scope.updateStatus();
+      }
+
       $scope.saveToStorage();
+    };
+
+    $scope.updateStatus = function(){
+      // Merge all the courses
+      var all = [];
+      var conflicts = [];
+      Object.keys($scope.selected).forEach(function(day){
+        all = all.concat($scope.selected[day]);
+      });
+
+      all.forEach(function(c){
+        c.conflict = false;
+      });
+
+      var checkOverlap = function(a, b){
+        var cond1 = a.start.isBefore(b.end) || a.start.isSame(b.end);
+        var cond2 = a.end.isAfter(b.start) || a.end.isSame(b.start);
+        return cond1 && cond2;
+      };
+
+      // Check class overlap
+      $scope.flags.conflictClass = false;
+      var getClassStartEnd = function(c){
+        return {
+          start: moment(c.start, 'HH:mm'),
+          end: moment(c.end, 'HH:mm')
+        };
+      };
+
+      all.forEach(function(first){
+        var firstClass = getClassStartEnd(first);
+        var firstCode = first.code + first.group;
+        all.forEach(function(second){
+          var secondCode = second.code + second.group;
+          if (firstCode !== secondCode) {
+            var secondClass = getClassStartEnd(second);
+            if (first.day === second.day && checkOverlap(firstClass, secondClass)) {
+              $scope.flags.conflictClass = true;
+              conflicts.push(first);
+            }
+          }
+        });
+      });
+
+      // Check class exam
+      $scope.flags.conflictExams = false;
+
+      var getExamStartEnd = function(exam){
+        var startStr = exam.date + ' ' + exam.start;
+        var endStr = exam.date + ' ' + exam.end;
+
+        return {
+          start: moment(startStr, 'DD-MMM-YYY HH:mm'),
+          end: moment(endStr, 'DD-MMM-YYY HH:mm')
+        };
+      };
+
+      var exams = {};
+      var promises = [];
+      all.forEach(function(c){
+        var description = Description.get({number: c.classNbr}, function(d){
+          exams[c.classNbr] = d;
+        }).$promise;
+        promises.push(description);
+      });
+
+      $q.all(promises).then(function(){
+        all.forEach(function(first){
+          if (exams[first.classNbr].exam) {
+            var firstExam = getExamStartEnd(exams[first.classNbr].exam);
+            var firstCode = first.code + first.group;
+            all.forEach(function(second){
+              var secondCode = second.code + second.group;
+              if (firstCode !== secondCode && exams[second.classNbr].exam) {
+                var secondExam = getExamStartEnd(exams[second.classNbr].exam);
+                if (checkOverlap(firstExam, secondExam)) {
+                  $scope.flags.conflictExams = true;
+                  conflicts.push(first);
+                }
+              }
+            });
+          }
+        });
+
+        conflicts.forEach(function(c){
+          c.conflict = true;
+        });
+      });
     };
 
     $scope.selectCourse = function(course) {

@@ -39,6 +39,34 @@
 </div>
 
 <div ng-show="flags.showSelected">
+  <div class="row" id="status-row" ng-hide="selectedCount() === 0">
+    <div class="col-md-3">
+      <div class="status-badge" ng-class="{'conflict': flags.conflictClass, 'no-conflict': !flags.conflictClass }">
+        <p ng-hide="flags.conflictClass">
+          <span class="glyphicon glyphicon-ok-circle"></span>
+          No conflicting classes
+        </p>
+
+        <p ng-show="flags.conflictClass">
+          <span class="glyphicon glyphicon-remove-circle"></span>
+          Conflicting classes
+        </p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="status-badge" ng-class="{'conflict': flags.conflictExams, 'no-conflict': !flags.conflictExams }">
+        <p ng-hide="flags.conflictExams">
+          <span class="glyphicon glyphicon-ok-circle"></span>
+          No conflicting exams
+        </p>
+
+        <p ng-show="flags.conflictExams">
+          <span class="glyphicon glyphicon-remove-circle"></span>
+          Conflicting exams
+        </p>
+      </div>
+    </div>
+  </div>
   <div class="row" ng-show="selectedCount() === 0">
     <div class="col-md-12 text-center" id="empty-placeholder">
       <span>No modules selected</span>
@@ -53,8 +81,7 @@
     </div>
     <div class="row" id="results">
       <div class="col-md-4 result" ng-repeat="course in selected.Monday | orderBy: start">
-        <div class="result">
-          <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
+        <div class="result" ng-class="{'conflict': course.conflict}">
           <h5>{{course.search}} - {{course.group}}</h5>
           <p>
             <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
@@ -91,8 +118,7 @@
     </div>
     <div class="row" id="results">
       <div class="col-md-4 result" ng-repeat="course in selected.Tuesday | filter:search">
-        <div class="result">
-          <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
+        <div class="result" ng-class="{'conflict': course.conflict}">
           <h5>{{course.search}} - {{course.group}}</h5>
           <p>
             <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
@@ -129,8 +155,7 @@
     </div>
     <div class="row" id="results">
       <div class="col-md-4 result" ng-repeat="course in selected.Wednesday | filter:search">
-        <div class="result">
-          <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
+        <div class="result" ng-class="{'conflict': course.conflict}">
           <h5>{{course.search}} - {{course.group}}</h5>
           <p>
             <small>{{dayLabel(course.day)}}, {{course.start}} - {{course.end}}</small>
@@ -167,7 +192,7 @@
     </div>
     <div class="row" id="results">
       <div class="col-md-4 result" ng-repeat="course in selected.Thursday | filter:search">
-        <div class="result">
+        <div class="result" ng-class="{'conflict': course.conflict}">
           <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
           <h5>{{course.search}} - {{course.group}}</h5>
           <p>
@@ -205,7 +230,7 @@
     </div>
     <div class="row" id="results">
       <div class="col-md-4 result" ng-repeat="course in selected.Friday | filter:search">
-        <div class="result">
+        <div class="result" ng-class="{'conflict': course.conflict}">
           <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
           <h5>{{course.search}} - {{course.group}}</h5>
           <p>
@@ -243,7 +268,7 @@
     </div>
     <div class="row" id="results">
       <div class="col-md-4 result" ng-repeat="course in selected.Saturday | filter:search">
-        <div class="result">
+        <div class="result" ng-class="{'conflict': course.conflict}">
           <!-- <a href="" class="pull-right btn btn-link upload-btn"><span class="glyphicon glyphicon-save"></span></a> -->
           <h5>{{course.search}} - {{course.group}}</h5>
           <p>

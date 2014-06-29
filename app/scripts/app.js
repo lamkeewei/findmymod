@@ -48,6 +48,9 @@ angular.module('findmymodApp', [
   .factory('_', function(){
     return window._;
   })
+  .factory('moment', function(){
+    return window.moment;
+  })
   .run(function ($rootScope, $location, Auth) {
 
     // Redirect to login if route requires auth and you're not logged in

@@ -212,3 +212,39 @@ h1#title {
 #empty-placeholder {
   padding: 15px 0px;
 }
+
+.status-badge {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.0470588) 0px 2px 3px 0px;
+  padding: 15px;
+  width: 100%;
+  border-left: 5px solid #35ABDD;
+  display: table;
+  margin-bottom: 15px;
+}
+
+
+.status-badge.no-conflict {
+  border-color: #5cb85c;
+  color: #339533;
+}
+
+.status-badge.conflict {
+  border-color: #d9534f;
+  color: #d9534f;
+}
+
+.status-badge p {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#status-row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.result.conflict {
+  border-left: 5px solid #d9534f;
+}
