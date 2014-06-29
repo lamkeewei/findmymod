@@ -9,7 +9,8 @@ angular.module('findmymodApp', [
   'ui.select2',
   'angular-loading-bar',
   'nvd3ChartDirectives',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'newrelic-timing'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
