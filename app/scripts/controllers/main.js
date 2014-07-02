@@ -8,6 +8,7 @@ angular.module('findmymodApp')
       showSelected: false,
       conflictExams: false,
       conflictClass: false,
+      hideAvailable: false
     };
 
     $scope.saveToStorage = function(){
@@ -145,6 +146,7 @@ angular.module('findmymodApp')
     };
 
     $scope.dayLabel = function(day){
+      day = day.toUpperCase();
       switch(day) {
         case 'MON':
           return 'Monday';
@@ -241,7 +243,7 @@ angular.module('findmymodApp')
 
           if (c.saved && c.otherDates) {
             c.otherDates.forEach(function(cc){
-              if (cc.day === 'MON') {
+              if (cc.day.toUpperCase() === 'MON') {
                 cond2 = true;
               }
             });
@@ -255,7 +257,7 @@ angular.module('findmymodApp')
 
           if (c.saved && c.otherDates) {
             c.otherDates.forEach(function(cc){
-              if (cc.day === 'TUE') {
+              if (cc.day.toUpperCase() === 'TUE') {
                 cond2 = true;
               }
             });
@@ -269,7 +271,7 @@ angular.module('findmymodApp')
 
           if (c.saved && c.otherDates) {
             c.otherDates.forEach(function(cc){
-              if (cc.day === 'WED') {
+              if (cc.day.toUpperCase() === 'WED') {
                 cond2 = true;
               }
             });
@@ -283,7 +285,7 @@ angular.module('findmymodApp')
 
           if (c.saved && c.otherDates) {
             c.otherDates.forEach(function(cc){
-              if (cc.day === 'THU') {
+              if (cc.day.toUpperCase() === 'THU') {
                 cond2 = true;
               }
             });
@@ -297,7 +299,7 @@ angular.module('findmymodApp')
 
           if (c.saved && c.otherDates) {
             c.otherDates.forEach(function(cc){
-              if (cc.day === 'FRI') {
+              if (cc.day.toUpperCase() === 'FRI') {
                 cond2 = true;
               }
             });
@@ -311,7 +313,7 @@ angular.module('findmymodApp')
 
           if (c.saved && c.otherDates) {
             c.otherDates.forEach(function(cc){
-              if (cc.day === 'SAT') {
+              if (cc.day.toUpperCase() === 'SAT') {
                 cond2 = true;
               }
             });
@@ -326,12 +328,12 @@ angular.module('findmymodApp')
       };
 
       $scope.selected = {
-        Monday: _.sortBy($scope.selected.Monday, toNumber),
-        Tuesday: _.sortBy($scope.selected.Tuesday, toNumber),
-        Wednesday: _.sortBy($scope.selected.Wednesday, toNumber),
-        Thursday: _.sortBy($scope.selected.Thursday, toNumber),
-        Friday: _.sortBy($scope.selected.Friday, toNumber),
-        Saturday: _.sortBy($scope.selected.Saturday, toNumber)
+        Monday: _.sortBy($scope.selected.Monday, 'start'),
+        Tuesday: _.sortBy($scope.selected.Tuesday, 'start'),
+        Wednesday: _.sortBy($scope.selected.Wednesday, 'start'),
+        Thursday: _.sortBy($scope.selected.Thursday, 'start'),
+        Friday: _.sortBy($scope.selected.Friday, 'start'),
+        Saturday: _.sortBy($scope.selected.Saturday, 'start')
       };
 
       if ($scope.flags.showSelected) {
@@ -378,6 +380,17 @@ angular.module('findmymodApp')
             if (first.day === second.day && checkOverlap(firstClass, secondClass)) {
               $scope.flags.conflictClass = true;
               conflicts.push(first);
+            }
+
+            if(first.otherDates && first.otherDates.length > 0) {
+              first.otherDates.forEach(function(f){
+                var time = getClassStartEnd(f);
+                if (f.day.toUpperCase() === second.day && checkOverlap(firstClass, secondClass)) {
+                  $scope.flags.conflictClass = true;
+                  conflicts.push(first);
+                  conflicts.push(second);
+                }
+              });
             }
           }
         });
@@ -432,5 +445,13 @@ angular.module('findmymodApp')
     $scope.selectCourse = function(course) {
       course.saved = !course.saved;
       $scope.getSelected();
+    };
+
+    $scope.slotLabel = function(num){
+      if (num > 1) {
+        return 'Slots';
+      }
+
+      return 'Slot';
     };
   });

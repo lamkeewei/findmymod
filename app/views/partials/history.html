@@ -11,8 +11,9 @@
     <div class="form-group">
       <select class="form-control input-sm" ng-model="state.semester">
         <option value="">All Semesters</option>
-        <option value="1">AY13/14 - Semester 1</option>
-        <option value="2">AY13/14 - Semester 2</option>
+        <option value="0">AY13/14 - Semester 1</option>
+        <option value="1">AY13/14 - Semester 2</option>
+        <option value="2">AY14/15 - Semester 1</option>
       </select>
     </div>
     <div class="form-group remove-btm-margin">
@@ -34,7 +35,7 @@
           <small>Section</small>
         </div>
         <div class="col-xs-2">
-          <small class="visible-xs">Vac</small><small class="hidden-xs">Vacancy</small>
+          <small class="visible-xs">Vac</small><small class="hidden-xs">Open Vac</small>
         </div>
         <div class="col-xs-2">
           <small>Min</small>
@@ -45,8 +46,8 @@
       </div>
 
       <div class="row bid-history-row" ng-repeat="bid in bids | filter: {} | slice: { pos: state.currentPage, num: 5, bids: bids } | limitTo: 5">
-        <div class="col-xs-3">      
-          <small><span class="visible-xs">{{bid.type}}</span><span class="hidden-xs">{{bid.type}}</span> {{bid.round}} - {{bid.window}}</small>
+        <div class="col-xs-3">
+          <small><span class="visible-xs small-words">{{bid.year}} {{bid.type}}</span><span class="hidden-xs">{{bid.year}} {{bid.type}}</span> {{bid.round}} - {{bid.window}}</small>
         </div>
         <div class="col-xs-3">
           <small>{{bid.section}}</small>

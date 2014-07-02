@@ -248,3 +248,82 @@ h1#title {
 .result.conflict {
   border-left: 5px solid #d9534f;
 }
+
+.btn-controls {
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: right;
+}
+
+.no-vacancy {
+  opacity: 0.4;
+}
+
+@media (max-width: 768px) {
+  #controls button{
+    font-size: 5pt;
+  }
+}
+
+#footer{
+  position:fixed;
+  height:50px;
+  background-color: #0278AA;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  margin-bottom:0px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px -2px 3px 0px;
+}
+
+#footer .col-xs-6 {
+  padding: 10px;  ;
+  color: white;
+  padding: 0px;
+}
+
+#footer .col-xs-6:first-child {
+  border-right: solid 1.5px #005F91;
+}
+
+#footer .col-xs-6 .btn-link {
+  color: white;
+  height: 50px;
+  padding: 0px;
+}
+
+#footer .col-xs-6 .btn-link.ng-click-active {
+  background-color: #35ABDD;
+}
+
+#footer .col-xs-6 .btn-link:hover {
+  text-decoration: none;
+}
+
+#footer .col-xs-6 .btn-link:active {
+  text-decoration: none;
+}
+
+#footer .col-xs-6 .btn-link:focus {
+  text-decoration: none;
+}
+
+.badge-cyan {
+  background-color: #35ABDD;
+}
+
+#body {
+  margin-bottom: 55px;
+}
+
+@media (max-width: 768px) {
+  .small-words {
+    font-size: 85%;
+  }
+}
+
+.label-slots {
+  background-color: none;
+  color: #35ABDD;
+  border: solid 1px #35ABDD;
+}

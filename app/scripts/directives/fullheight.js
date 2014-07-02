@@ -8,9 +8,11 @@ angular.module('findmymodApp')
         var dialog = document.querySelector('.modal-content');
 
         var setMinHeight = function(){
+          var el = angular.element(dialog);
           if ($window.innerWidth <= 768) {
-            var el = angular.element(dialog);
             el.css('min-height', $window.innerHeight + 'px');
+          } else {
+            el.css('min-height', '0px');
           }
         };
 

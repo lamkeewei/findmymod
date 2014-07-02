@@ -8,6 +8,19 @@ angular.module('findmymodApp')
     $scope.state = {};
     $scope.state.currentPage = 1;
     $scope.state.round = '';
+    $scope.semesters = [
+      {
+        year: '13/14',
+        semester: '1'
+      }, {
+        year: '13/14',
+        semester: '2'
+      }, {
+        year: '14/15',
+        semester: '1'
+      }
+    ];
+
     $scope.rounds = [
       {
         round: '1',
@@ -59,7 +72,10 @@ angular.module('findmymodApp')
       }
 
       if (newVal[1]) {
-        filter.semester = newVal[1];
+        var semester = $scope.semesters[newVal[1]];
+        filter.semester = semester.semester;
+        filter.year = semester.year;
+
       }
 
       if(_.isEmpty(filter)) {
