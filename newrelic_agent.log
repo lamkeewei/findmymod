@@ -153,3 +153,7 @@
 {"name":"newrelic","hostname":"Kee-Weis-Macbook-Air.local","pid":43228,"component":"express","level":40,"msg":"Unrecognized version NaN of Express detected; not instrumenting","time":"2014-07-02T07:37:04.055Z","v":0}
 {"name":"newrelic","hostname":"Kee-Weis-Macbook-Air.local","pid":43228,"component":"new_relic_response","level":30,"msg":"Reporting to: https://rpm.newrelic.com/accounts/709166/applications/3321453","time":"2014-07-02T07:37:10.087Z","v":0}
 {"name":"newrelic","hostname":"Kee-Weis-Macbook-Air.local","pid":43228,"component":"collector_api","level":30,"msg":"Connected to collector-128.newrelic.com:443 with agent run ID 1305503240.","time":"2014-07-02T07:37:10.087Z","v":0}
+{"name":"newrelic","hostname":"Kee-Weis-Macbook-Air.local","pid":4841,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-07-04T06:39:44.340Z","v":0}
+{"name":"newrelic","hostname":"Kee-Weis-Macbook-Air.local","pid":4841,"component":"express","level":40,"msg":"Unrecognized version NaN of Express detected; not instrumenting","time":"2014-07-04T06:39:45.027Z","v":0}
+{"name":"newrelic","hostname":"Kee-Weis-Macbook-Air.local","pid":4841,"component":"new_relic_response","level":30,"msg":"Reporting to: https://rpm.newrelic.com/accounts/709166/applications/3321453","time":"2014-07-04T06:39:50.409Z","v":0}
+{"name":"newrelic","hostname":"Kee-Weis-Macbook-Air.local","pid":4841,"component":"collector_api","level":30,"msg":"Connected to collector-128.newrelic.com:443 with agent run ID 1309812037.","time":"2014-07-04T06:39:50.410Z","v":0}
